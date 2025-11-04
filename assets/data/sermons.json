@@ -1,0 +1,214 @@
+{
+  "sermons": [
+    {
+      "id": "sermon-001",
+      "title": "First Pre-Faith Convention",
+      "speaker": "Pastor Tobore David",
+      "date": "2025-11-02",
+      "series": "growing-spiritually",
+      "topic": "faith",
+      "duration": "3:34:25",
+      "youtubeId": "cnLIfTEpp1g",
+      "audioUrl": "https://archive.org/download/saltcity-sermons/sermon-001.mp3",
+      "spotifyUrl": "https://open.spotify.com/episode/5ZGEKVpzoY3xiSZe4KXInK?si=8a132cc0ff754bc8",
+      "artwork": "../assets/images/sermons/growing-spiritually.jpg",
+      "description": "In this powerful message, Pastor Tobore David explores what it truly means to walk by faith in our daily lives. Drawing from 2 Corinthians 5:7, we learn practical steps to develop unwavering trust in God's promises regardless of our circumstances.",
+      "notes": "../assets/sermons/notes/sermon-001.pdf"
+    },
+    {
+      "id": "sermon-002",
+      "title": "Discovering Your Identity in Christ",
+      "speaker": "Pastor Faith Johnson",
+      "date": "2025-03-08",
+      "series": "identity-in-christ",
+      "topic": "purpose",
+      "duration": "38:15",
+      "youtubeId": "dQw4w9WgXcQ",
+      "audioUrl": "https://archive.org/download/saltcity-sermons/sermon-002.mp3",
+      "spotifyUrl": "https://open.spotify.com/episode/def456",
+      "artwork": "../assets/images/sermons/sermon-2.jpg",
+      "description": "Understanding who God says you are and living from that identity. Pastor Faith Johnson helps us discover the transformative power of knowing our true identity in Christ.",
+      "notes": "../assets/sermons/notes/sermon-002.pdf"
+    },
+    {
+      "id": "sermon-003",
+      "title": "Living a Purpose Driven Life",
+      "speaker": "Pastor Tobore David",
+      "date": "2025-03-01",
+      "series": "purpose-driven",
+      "topic": "purpose",
+      "duration": "42:30",
+      "youtubeId": "dQw4w9WgXcQ",
+      "audioUrl": "https://archive.org/download/saltcity-sermons/sermon-003.mp3",
+      "spotifyUrl": "https://open.spotify.com/episode/ghi789",
+      "artwork": "../assets/images/sermons/sermon-3.jpg",
+      "description": "How to discover and fulfill God's unique purpose for your life. This message provides practical guidance on aligning your life with God's divine plan.",
+      "notes": "../assets/sermons/notes/sermon-003.pdf"
+    },
+    {
+      "id": "sermon-004",
+      "title": "Building Godly Relationships",
+      "speaker": "Brother Michael Adeyemi",
+      "date": "2025-02-22",
+      "series": "relationships",
+      "topic": "relationships",
+      "duration": "39:45",
+      "youtubeId": "dQw4w9WgXcQ",
+      "audioUrl": "https://archive.org/download/saltcity-sermons/sermon-004.mp3",
+      "spotifyUrl": "https://open.spotify.com/episode/jkl012",
+      "artwork": "../assets/images/sermons/sermon-4.jpg",
+      "description": "Biblical principles for healthy, Christ-centered relationships. Learn how to build and maintain relationships that honor God and strengthen your faith community.",
+      "notes": "../assets/sermons/notes/sermon-004.pdf"
+    },
+    {
+      "id": "sermon-005",
+      "title": "The Power of Persistent Prayer",
+      "speaker": "Pastor Tobore David",
+      "date": "2025-02-15",
+      "series": "spiritual-growth",
+      "topic": "prayer",
+      "duration": "47:10",
+      "youtubeId": "dQw4w9WgXcQ",
+      "audioUrl": "https://archive.org/download/saltcity-sermons/sermon-005.mp3",
+      "spotifyUrl": "https://open.spotify.com/episode/mno345",
+      "artwork": "../assets/images/sermons/sermon-5.jpg",
+      "description": "Developing a consistent prayer life that moves mountains. Discover the transformative power of persistent, faith-filled prayer in your daily walk with God.",
+      "notes": "../assets/sermons/notes/sermon-005.pdf"
+    },
+    {
+      "id": "sermon-006",
+      "title": "Overcoming Fear with Faith",
+      "speaker": "Rev. Daniel Williams",
+      "date": "2025-02-08",
+      "series": "faith-walk",
+      "topic": "faith",
+      "duration": "41:25",
+      "youtubeId": "dQw4w9WgXcQ",
+      "audioUrl": "https://archive.org/download/saltcity-sermons/sermon-006.mp3",
+      "spotifyUrl": "https://open.spotify.com/episode/pqr678",
+      "artwork": "../assets/images/sermons/sermon-6.jpg",
+      "description": "Practical steps to replace fear with faith in God's promises. Guest speaker Rev. Daniel Williams shares powerful insights on conquering fear through unwavering trust in God.",
+      "notes": "../assets/sermons/notes/sermon-006.pdf"
+    },
+    {
+      "id": "sermon-007",
+      "title": "The Discipline of Discipleship",
+      "speaker": "Pastor Tobore David",
+      "date": "2025-02-01",
+      "series": "spiritual-growth",
+      "topic": "discipleship",
+      "duration": "44:55",
+      "youtubeId": "dQw4w9WgXcQ",
+      "audioUrl": "https://archive.org/download/saltcity-sermons/sermon-007.mp3",
+      "spotifyUrl": "https://open.spotify.com/episode/stu901",
+      "artwork": "../assets/images/sermons/sermon-1.jpg",
+      "description": "What it truly means to be a disciple of Christ. This message challenges us to embrace the disciplines that lead to spiritual maturity and effective ministry.",
+      "notes": "../assets/sermons/notes/sermon-007.pdf"
+    },
+    {
+      "id": "sermon-008",
+      "title": "Love in Action",
+      "speaker": "Pastor Faith Johnson",
+      "date": "2025-01-25",
+      "series": "relationships",
+      "topic": "relationships",
+      "duration": "36:20",
+      "youtubeId": "dQw4w9WgXcQ",
+      "audioUrl": "https://archive.org/download/saltcity-sermons/sermon-008.mp3",
+      "spotifyUrl": "https://open.spotify.com/episode/vwx234",
+      "artwork": "../assets/images/sermons/sermon-2.jpg",
+      "description": "How to demonstrate Christ's love in practical ways. Pastor Faith shows us how to move beyond words to actively express God's love to those around us.",
+      "notes": "../assets/sermons/notes/sermon-008.pdf"
+    },
+    {
+      "id": "sermon-009",
+      "title": "Finding Your Calling",
+      "speaker": "Pastor Tobore David",
+      "date": "2025-01-18",
+      "series": "purpose-driven",
+      "topic": "purpose",
+      "duration": "43:15",
+      "youtubeId": "dQw4w9WgXcQ",
+      "audioUrl": "https://archive.org/download/saltcity-sermons/sermon-009.mp3",
+      "spotifyUrl": "https://open.spotify.com/episode/yza567",
+      "artwork": "../assets/images/sermons/sermon-3.jpg",
+      "description": "Discovering and stepping into your divine calling. Learn to recognize God's voice and courageously pursue the unique purpose He has designed for you.",
+      "notes": "../assets/sermons/notes/sermon-009.pdf"
+    },
+    {
+      "id": "sermon-010",
+      "title": "Trusting God in Uncertainty",
+      "speaker": "Pastor Tobore David",
+      "date": "2025-01-11",
+      "series": "faith-walk",
+      "topic": "faith",
+      "duration": "40:30",
+      "youtubeId": "dQw4w9WgXcQ",
+      "audioUrl": "https://archive.org/download/saltcity-sermons/sermon-010.mp3",
+      "spotifyUrl": "https://open.spotify.com/episode/bcd890",
+      "artwork": "../assets/images/sermons/sermon-4.jpg",
+      "description": "How to maintain faith when life feels unpredictable. This timely message provides biblical wisdom for navigating uncertain seasons with confidence in God's faithfulness.",
+      "notes": "../assets/sermons/notes/sermon-010.pdf"
+    }
+  ],
+  "series": [
+    {
+      "id": "faith-walk",
+      "name": "The Faith Walk",
+      "description": "A journey through what it means to live by faith in every area of life.",
+      "sermonCount": 4,
+      "artwork": "../assets/images/series/faith-walk.jpg"
+    },
+    {
+      "id": "identity-in-christ",
+      "name": "Identity in Christ",
+      "description": "Discover who you are in God's eyes and live from that truth.",
+      "sermonCount": 1,
+      "artwork": "../assets/images/series/identity-in-christ.jpg"
+    },
+    {
+      "id": "purpose-driven",
+      "name": "Purpose Driven Life",
+      "description": "Finding and fulfilling God's unique purpose for your life.",
+      "sermonCount": 2,
+      "artwork": "../assets/images/series/purpose-driven.jpg"
+    },
+    {
+      "id": "relationships",
+      "name": "Godly Relationships",
+      "description": "Building healthy, Christ-centered relationships.",
+      "sermonCount": 2,
+      "artwork": "../assets/images/series/relationships.jpg"
+    },
+    {
+      "id": "spiritual-growth",
+      "name": "Spiritual Growth",
+      "description": "Maturing in your walk with Christ through spiritual disciplines.",
+      "sermonCount": 2,
+      "artwork": "../assets/images/series/spiritual-growth.jpg"
+    }
+  ],
+  "speakers": [
+    {
+      "id": "pastor-tobore-david",
+      "name": "Pastor Tobore David",
+      "role": "Senior Pastor",
+      "bio": "Senior Pastor of SaltCity Central with a passion for discipleship and biblical teaching.",
+      "avatar": "../assets/images/leadership/pastor-tobore.jpg"
+    },
+    {
+      "id": "pastor-faith-johnson",
+      "name": "Pastor Faith Johnson",
+      "role": "Associate Pastor",
+      "bio": "Associate Pastor focused on relationships and women's ministry.",
+      "avatar": "../assets/images/leadership/leader-1.jpg"
+    },
+    {
+      "id": "brother-michael-adeyemi",
+      "name": "Brother Michael Adeyemi",
+      "role": "Youth Pastor",
+      "bio": "Youth Pastor with a heart for the next generation.",
+      "avatar": "../assets/images/leadership/leader-2.jpg"
+    }
+  ]
+}

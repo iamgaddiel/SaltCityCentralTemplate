@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
-    const heroHeight = window.innerHeight * 0.6;
+    const heroHeight = window.innerHeight * 0.2;
 
     // Dark background after scroll threshold
     if (scrollY > heroHeight) {
