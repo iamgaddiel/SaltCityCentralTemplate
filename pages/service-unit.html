@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Serve in a Ministry Unit at SaltCity Central - Use your gifts to build God's kingdom through various service opportunities.">
+    <title>Service Units | SaltCity Central</title>
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    
+    <style>
+        /* Additional styles specific to service units page */
+        .units-hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding-top: 120px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: var(--color-white);
+            overflow: hidden;
+        }
+        
+        .units-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .units-hero-badge {
+            display: inline-block;
+            background: rgba(212, 165, 116, 0.15);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-accent-gold);
+        }
+        
+        .units-hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--color-white), var(--color-accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .units-hero-text {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--color-light-grey);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .units-overview {
+            padding: var(--spacing-2xl) 0;
+            background: rgba(212, 165, 116, 0.03);
+        }
+        
+        .overview-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .stat-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--color-accent-gold);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-black);
+        }
+        
+        .units-section {
+            padding: var(--spacing-2xl) 0;
+        }
+        
+        .units-controls {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            align-items: end;
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 400px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            border-radius: 30px;
+            font-size: 1rem;
+            background: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-accent-gold);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--color-medium-grey);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .category-filter {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+        
+        .filter-select {
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            border-radius: 30px;
+            font-size: 1rem;
+            background: var(--color-white);
+            color: var(--color-medium-grey);
+            min-width: 200px;
+            cursor: pointer;
+        }
+        
+        .units-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        
+        .unit-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--color-accent-gold);
+        }
+        
+        .unit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .unit-header {
+            padding: var(--spacing-lg);
+            background: rgba(212, 165, 116, 0.05);
+            border-bottom: 1px solid var(--color-light-grey);
+        }
+        
+        .unit-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: 0.5rem;
+        }
+        
+        .unit-leader {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .leader-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .leader-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .leader-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-black);
+            margin-bottom: 0.25rem;
+        }
+        
+        .leader-info p {
+            font-size: 0.875rem;
+            color: var(--color-medium-grey);
+        }
+        
+        .unit-details {
+            padding: var(--spacing-lg);
+        }
+        
+        .unit-description {
+            color: var(--color-medium-grey);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .unit-responsibilities {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .responsibilities-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-black);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .responsibilities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .responsibility-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--color-medium-grey);
+        }
+        
+        .responsibility-check {
+            color: var(--color-accent-gold);
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+        
+        .unit-requirements {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .requirements-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-black);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .requirements-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .requirement-tag {
+            background: rgba(212, 165, 116, 0.1);
+            color: var(--color-accent-warm);
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .unit-actions {
+            padding: var(--spacing-lg);
+            background: rgba(212, 165, 116, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .unit-size {
+            font-size: 0.875rem;
+            color: var(--color-medium-grey);
+        }
+        
+        .join-btn {
+            background: var(--gradient-warm);
+            color: var(--color-white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .join-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .cta-section {
+            padding: var(--spacing-2xl) 0;
+            text-align: center;
+            background: rgba(212, 165, 116, 0.03);
+        }
+        
+        .cta-card {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-md);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .cta-text {
+            font-size: 1.125rem;
+            color: var(--color-medium-grey);
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.6;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-black);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--color-medium-grey);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-black);
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-accent-gold);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .submit-btn {
+            background: var(--gradient-warm);
+            color: var(--color-white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .cancel-btn {
+            background: var(--color-white);
+            color: var(--color-medium-grey);
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+        
+        .cancel-btn:hover {
+            border-color: var(--color-accent-gold);
+            color: var(--color-accent-warm);
+        }
+        
+        @media (max-width: 1024px) {
+            .units-controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-filter {
+                justify-content: flex-start;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .units-hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .units-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .unit-actions {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                text-align: center;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .units-hero-title {
+                font-size: 2rem;
+            }
+            
+            .overview-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .category-filter {
+                flex-direction: column;
+            }
+            
+            .filter-select {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- ========== HEADER / NAVIGATION ========== -->
+    <header class="site-header" id="mainHeader">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <a href="../index.html">
+                        <img src="../assets/images/logo/logo-white.svg" alt="SaltCity Central Logo" class="logo">
+                    </a>
+                    <span class="tagline">Discipling believers to fulfil their ministry</span>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="main-nav" id="mainNav">
+                    <ul class="nav-list">
+                        <li><a href="../index.html" class="nav-link">Home</a></li>
+                        <li><a href="sermons.html" class="nav-link">Sermons</a></li>
+                        <li><a href="programs.html" class="nav-link">Programs</a></li>
+                        <li><a href="giving.html" class="nav-link">Give</a></li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="units-hero">
+        <div class="container">
+            <div class="units-hero-content">
+                <div class="units-hero-badge">Serve With Purpose</div>
+                <h1 class="units-hero-title">Service Units</h1>
+                <p class="units-hero-text">
+                    Every member is a minister. Discover where your gifts, passions, and availability intersect with the needs of our church community. Find your place to serve and make a difference.
+                </p>
+                <a href="#units" class="btn btn-primary">Explore Units</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== OVERVIEW SECTION ========== -->
+    <section class="units-overview section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Find Your Place to Serve</h2>
+                <p>Join one of our ministry teams and use your gifts to build God's kingdom</p>
+            </div>
+            
+            <div class="overview-stats">
+                <div class="stat-card">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Ministry Units</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Active Volunteers</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">Weekly</div>
+                    <div class="stat-label">Service Opportunities</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">All</div>
+                    <div class="stat-label">Skills & Abilities</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== UNITS SECTION ========== -->
+    <section class="units-section section-padding" id="units">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ministry Units</h2>
+                <p>Browse our service teams and find where you fit</p>
+            </div>
+            
+            <div class="units-controls">
+                <div class="search-box">
+                    <input type="text" placeholder="Search by unit name, skills, or keywords..." class="search-input" id="unitSearch">
+                    <button class="search-btn" aria-label="Search">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="category-filter">
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="worship">Worship & Creative</option>
+                        <option value="hospitality">Hospitality & Welcome</option>
+                        <option value="operations">Operations & Support</option>
+                        <option value="ministry">Ministry & Outreach</option>
+                        <option value="technical">Technical & Media</option>
+                    </select>
+                    
+                    <select class="filter-select" id="commitmentFilter">
+                        <option value="all">All Commitment Levels</option>
+                        <option value="weekly">Weekly Service</option>
+                        <option value="biweekly">Bi-Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="special">Special Events</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="units-grid" id="unitsContainer">
+                <!-- Units will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="cta-section section-padding">
+        <div class="container">
+            <div class="cta-card">
+                <h2 class="cta-title">Not Sure Where to Serve?</h2>
+                <p class="cta-text">
+                    We'd love to help you discover your gifts and find the perfect place to serve. Contact our team for a personalized serving recommendation.
+                </p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" id="generalInquiry">Get Serving Recommendations</button>
+                    <a href="contact.html" class="btn btn-outline">Contact Our Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== JOIN UNIT MODAL ========== -->
+    <div class="modal" id="joinModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalUnitName">Join Service Unit</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            
+            <form id="joinForm">
+                <input type="hidden" id="selectedUnitId">
+                
+                <div class="form-group">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" id="fullName" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="unitInterest" class="form-label">Unit of Interest</label>
+                    <select id="unitInterest" class="form-select" required>
+                        <option value="">Select a unit</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience" class="form-label">Relevant Experience</label>
+                    <textarea id="experience" class="form-textarea" rows="4" placeholder="Briefly describe any relevant experience, skills, or training..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="availability" class="form-label">Availability</label>
+                    <select id="availability" class="form-select" required>
+                        <option value="">Select your availability</option>
+                        <option value="sunday-am">Sunday Mornings</option>
+                        <option value="sunday-pm">Sunday Afternoons</option>
+                        <option value="weekdays">Weekdays</option>
+                        <option value="evenings">Evenings</option>
+                        <option value="weekends">Weekends</option>
+                        <option value="flexible">Flexible</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Message (Optional)</label>
+                    <textarea id="message" class="form-textarea" rows="4" placeholder="Why are you interested in this unit? Any questions?..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                    <button type="button" class="cancel-btn" id="cancelJoin">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER SECTION ========== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-column footer-about">
+                    <div class="footer-logo">
+                        <img src="../assets/images/logo/logo-white.svg" alt="SaltCity Central">
+                    </div>
+                    <p class="footer-tagline">Discipling men to fulfil their ministry</p>
+                    <p class="footer-mission">
+                        We are a community of believers committed to making disciples through authentic relationships, biblical teaching, and intentional training.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="our-story.html">Our Story</a></li>
+                        <li><a href="programs.html">Programs</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Visit Us</h4>
+                    <div class="footer-location">
+                        <p class="location-address">
+                            Centre of Discipleship<br>
+                            20 Okumagba Avenue<br>
+                            Warri, Delta State
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Connect</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <a href="mailto:info@saltcitycentral.org">info@saltcitycentral.org</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright">© 2025 SaltCity Central. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 3l-7 7h4v7h6v-7h4l-7-7z"/>
+        </svg>
+    </button>
+
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/navigation.js"></script>
+    <script src="../assets/js/header-scroll.js"></script>
+    
+    <script>
+        // Sample data for service units
+        const unitsData = [
+            {
+                id: 1,
+                name: "Herald",
+                leader: { name: "Brother Michael", avatar: "../assets/images/leadership/leader-1.jpg" },
+                description: "The communication team responsible for announcements, bulletin preparation, and church-wide information dissemination.",
+                responsibilities: [
+                    "Prepare weekly church announcements",
+                    "Create and distribute church bulletin",
+                    "Manage information boards and displays",
+                    "Coordinate special event communications"
+                ],
+                requirements: ["Good communication skills", "Attention to detail", "Weekly commitment"],
+                category: "operations",
+                commitment: "weekly",
+                teamSize: "8 members"
+            },
+            {
+                id: 2,
+                name: "New Guest Ministry",
+                leader: { name: "Sister Grace", avatar: "../assets/images/leadership/leader-2.jpg" },
+                description: "Welcome first-time visitors, provide information, and help newcomers feel at home in our church family.",
+                responsibilities: [
+                    "Greet and welcome first-time visitors",
+                    "Provide newcomer information packets",
+                    "Follow up with visitors after service",
+                    "Host newcomer orientation sessions"
+                ],
+                requirements: ["Friendly and welcoming", "Good conversational skills", "Bi-weekly commitment"],
+                category: "hospitality",
+                commitment: "biweekly",
+                teamSize: "12 members"
+            },
+            {
+                id: 3,
+                name: "Programs & Events",
+                leader: { name: "Brother David", avatar: "../assets/images/leadership/leader-3.jpg" },
+                description: "Plan, coordinate, and execute church programs, conferences, and special events throughout the year.",
+                responsibilities: [
+                    "Plan and coordinate church events",
+                    "Manage event logistics and setup",
+                    "Coordinate with other ministry units",
+                    "Evaluate event success and feedback"
+                ],
+                requirements: ["Organizational skills", "Event planning experience", "Flexible schedule"],
+                category: "operations",
+                commitment: "monthly",
+                teamSize: "10 members"
+            },
+            {
+                id: 4,
+                name: "Protocol",
+                leader: { name: "Sister Faith", avatar: "../assets/images/leadership/leader-4.jpg" },
+                description: "Ensure proper protocol is followed for services and special events, assisting pastors and guest ministers.",
+                responsibilities: [
+                    "Assist pastors and guest ministers",
+                    "Manage platform protocol during services",
+                    "Coordinate special service arrangements",
+                    "Ensure proper decorum during events"
+                ],
+                requirements: ["Discreet and professional", "Understanding of church protocol", "Weekly commitment"],
+                category: "operations",
+                commitment: "weekly",
+                teamSize: "6 members"
+            },
+            {
+                id: 5,
+                name: "Children's Church",
+                leader: { name: "Sister Precious", avatar: "../assets/images/leadership/leader-5.jpg" },
+                description: "Minister to children through age-appropriate teaching, activities, and care during church services.",
+                responsibilities: [
+                    "Teach and care for children during services",
+                    "Prepare age-appropriate lessons",
+                    "Ensure child safety and security",
+                    "Communicate with parents about programs"
+                ],
+                requirements: ["Love for children", "Teaching ability", "Background check", "Weekly commitment"],
+                category: "ministry",
+                commitment: "weekly",
+                teamSize: "15 members"
+            },
+            {
+                id: 6,
+                name: "Traffic & Parking",
+                leader: { name: "Brother Samuel", avatar: "../assets/images/leadership/leader-6.jpg" },
+                description: "Manage parking logistics, direct traffic flow, and ensure safe arrival and departure for all attendees.",
+                responsibilities: [
+                    "Direct traffic flow in parking areas",
+                    "Assist with parking organization",
+                    "Ensure pedestrian safety",
+                    "Manage special event parking"
+                ],
+                requirements: ["Alert and safety-conscious", "Able to stand for periods", "Weekly commitment"],
+                category: "operations",
+                commitment: "weekly",
+                teamSize: "8 members"
+            },
+            {
+                id: 7,
+                name: "Security",
+                leader: { name: "Brother Johnson", avatar: "../assets/images/leadership/leader-1.jpg" },
+                description: "Ensure the safety and security of all church facilities, events, and attendees during services and activities.",
+                responsibilities: [
+                    "Monitor church premises during services",
+                    "Respond to security concerns",
+                    "Coordinate emergency procedures",
+                    "Assist with crowd management"
+                ],
+                requirements: ["Alert and observant", "Basic security training", "Weekly commitment"],
+                category: "operations",
+                commitment: "weekly",
+                teamSize: "10 members"
+            },
+            {
+                id: 8,
+                name: "Media & Production",
+                leader: { name: "Brother Daniel", avatar: "../assets/images/leadership/leader-2.jpg" },
+                description: "Operate audio, visual, and lighting systems to enhance worship services and church communications.",
+                responsibilities: [
+                    "Operate sound board during services",
+                    "Manage projection and media presentation",
+                    "Record and archive sermons",
+                    "Maintain media equipment"
+                ],
+                requirements: ["Technical aptitude", "Training provided", "Weekly commitment"],
+                category: "technical",
+                commitment: "weekly",
+                teamSize: "12 members"
+            },
+            {
+                id: 9,
+                name: "Venue Management",
+                leader: { name: "Brother James", avatar: "../assets/images/leadership/leader-3.jpg" },
+                description: "Oversee church facilities, setup, and maintenance to ensure optimal environment for worship and events.",
+                responsibilities: [
+                    "Coordinate room setup for services",
+                    "Manage facility maintenance needs",
+                    "Oversee cleaning and organization",
+                    "Prepare facilities for special events"
+                ],
+                requirements: ["Organizational skills", "Basic maintenance knowledge", "Weekly commitment"],
+                category: "operations",
+                commitment: "weekly",
+                teamSize: "8 members"
+            },
+            {
+                id: 10,
+                name: "Facility Maintenance",
+                leader: { name: "Brother Matthew", avatar: "../assets/images/leadership/leader-4.jpg" },
+                description: "Maintain church buildings, grounds, and equipment to ensure safe, clean, and functional facilities.",
+                responsibilities: [
+                    "Perform routine maintenance tasks",
+                    "Coordinate repairs with vendors",
+                    "Maintain church grounds and landscaping",
+                    "Manage inventory of supplies"
+                ],
+                requirements: ["Handyman skills", "Reliable and diligent", "Flexible schedule"],
+                category: "operations",
+                commitment: "monthly",
+                teamSize: "6 members"
+            },
+            {
+                id: 11,
+                name: "Power & Technical",
+                leader: { name: "Brother Andrew", avatar: "../assets/images/leadership/leader-5.jpg" },
+                description: "Ensure uninterrupted power supply and technical support for all church services and events.",
+                responsibilities: [
+                    "Manage generator and power systems",
+                    "Troubleshoot technical issues",
+                    "Maintain electrical systems",
+                    "Provide technical support for events"
+                ],
+                requirements: ["Electrical/technical knowledge", "Problem-solving skills", "Weekly commitment"],
+                category: "technical",
+                commitment: "weekly",
+                teamSize: "5 members"
+            },
+            {
+                id: 12,
+                name: "Savors (Choir)",
+                leader: { name: "Sister Joy", avatar: "../assets/images/leadership/leader-6.jpg" },
+                description: "Lead congregational worship through music and special performances during church services.",
+                responsibilities: [
+                    "Participate in weekly choir rehearsals",
+                    "Lead worship during services",
+                    "Learn and perform special music",
+                    "Minister through music ministry"
+                ],
+                requirements: ["Musical ability", "Commitment to rehearsals", "Weekly service"],
+                category: "worship",
+                commitment: "weekly",
+                teamSize: "25 members"
+            },
+            {
+                id: 13,
+                name: "New Beginnings",
+                leader: { name: "Pastor Edison", avatar: "../assets/images/leadership/pastor-edison.jpg" },
+                description: "Minister to new believers, providing discipleship, guidance, and support in their spiritual journey.",
+                responsibilities: [
+                    "Lead new believer classes",
+                    "Provide one-on-one discipleship",
+                    "Follow up with new converts",
+                    "Organize newcomer events"
+                ],
+                requirements: ["Mature Christian", "Teaching ability", "Heart for discipleship", "Weekly commitment"],
+                category: "ministry",
+                commitment: "weekly",
+                teamSize: "8 members"
+            },
+            {
+                id: 14,
+                name: "Prayer Ministry",
+                leader: { name: "Sister Peace", avatar: "../assets/images/leadership/leader-2.jpg" },
+                description: "Lead corporate prayer, intercede for the church, and provide prayer support for members in need.",
+                responsibilities: [
+                    "Lead prayer sessions before services",
+                    "Intercede for church needs",
+                    "Pray with members after service",
+                    "Organize prayer chains for urgent needs"
+                ],
+                requirements: ["Prayerful heart", "Compassionate spirit", "Weekly commitment"],
+                category: "ministry",
+                commitment: "weekly",
+                teamSize: "12 members"
+            },
+            {
+                id: 15,
+                name: "Ushers & Greeters",
+                leader: { name: "Brother Stephen", avatar: "../assets/images/leadership/leader-3.jpg" },
+                description: "Welcome attendees, distribute materials, assist with seating, and maintain order during services.",
+                responsibilities: [
+                    "Greet people as they arrive",
+                    "Distribute bulletins and materials",
+                    "Assist with seating arrangements",
+                    "Take up offerings during service"
+                ],
+                requirements: ["Friendly and helpful", "Alert and attentive", "Weekly commitment"],
+                category: "hospitality",
+                commitment: "weekly",
+                teamSize: "20 members"
+            },
+            {
+                id: 16,
+                name: "Benevolence & Outreach",
+                leader: { name: "Sister Mercy", avatar: "../assets/images/leadership/leader-4.jpg" },
+                description: "Coordinate community outreach programs and provide assistance to members and community in need.",
+                responsibilities: [
+                    "Organize community outreach events",
+                    "Distribute food and supplies to needy",
+                    "Visit hospitals and shut-ins",
+                    "Coordinate charity initiatives"
+                ],
+                requirements: ["Compassionate heart", "Good communication skills", "Flexible schedule"],
+                category: "ministry",
+                commitment: "monthly",
+                teamSize: "10 members"
+            },
+            {
+                id: 17,
+                name: "Youth Ministry",
+                leader: { name: "Brother Timothy", avatar: "../assets/images/leadership/leader-5.jpg" },
+                description: "Minister to teenagers through relevant teaching, activities, and discipleship tailored to youth.",
+                responsibilities: [
+                    "Lead youth Bible studies",
+                    "Organize youth activities and events",
+                    "Provide mentorship to teenagers",
+                    "Connect with youth in the community"
+                ],
+                requirements: ["Heart for youth", "Relatable to teenagers", "Background check", "Weekly commitment"],
+                category: "ministry",
+                commitment: "weekly",
+                teamSize: "8 members"
+            },
+            {
+                id: 18,
+                name: "Hospitality & Food",
+                leader: { name: "Sister Charity", avatar: "../assets/images/leadership/leader-6.jpg" },
+                description: "Coordinate food service for church events, special occasions, and fellowship meals.",
+                responsibilities: [
+                    "Prepare and serve food for events",
+                    "Coordinate potluck meals",
+                    "Manage kitchen inventory",
+                    "Ensure food safety standards"
+                ],
+                requirements: ["Food preparation skills", "Hospitality mindset", "Special events commitment"],
+                category: "hospitality",
+                commitment: "special",
+                teamSize: "15 members"
+            },
+            {
+                id: 19,
+                name: "Transportation",
+                leader: { name: "Brother Philip", avatar: "../assets/images/leadership/leader-1.jpg" },
+                description: "Provide transportation assistance for members who need help getting to church services and events.",
+                responsibilities: [
+                    "Drive church vehicles for pickups",
+                    "Coordinate transportation schedules",
+                    "Maintain vehicle logs and safety",
+                    "Assist with special event transportation"
+                ],
+                requirements: ["Valid driver's license", "Good driving record", "Reliable vehicle", "Weekly commitment"],
+                category: "operations",
+                commitment: "weekly",
+                teamSize: "6 members"
+            },
+            {
+                id: 20,
+                name: "Decor & Environment",
+                leader: { name: "Sister Beauty", avatar: "../assets/images/leadership/leader-2.jpg" },
+                description: "Create welcoming and spiritually conducive environments through decor, flowers, and seasonal arrangements.",
+                responsibilities: [
+                    "Decorate sanctuary for services",
+                    "Create seasonal displays",
+                    "Arrange flowers and decorations",
+                    "Maintain aesthetic appeal of spaces"
+                ],
+                requirements: ["Creative and artistic", "Attention to detail", "Seasonal commitment"],
+                category: "operations",
+                commitment: "monthly",
+                teamSize: "5 members"
+            }
+        ];
+
+        // DOM elements
+        const unitsContainer = document.getElementById('unitsContainer');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const commitmentFilter = document.getElementById('commitmentFilter');
+        const unitSearch = document.getElementById('unitSearch');
+        const joinModal = document.getElementById('joinModal');
+        const modalUnitName = document.getElementById('modalUnitName');
+        const selectedUnitId = document.getElementById('selectedUnitId');
+        const unitInterestSelect = document.getElementById('unitInterest');
+        const closeModal = document.getElementById('closeModal');
+        const cancelJoin = document.getElementById('cancelJoin');
+        const joinForm = document.getElementById('joinForm');
+        const generalInquiryBtn = document.getElementById('generalInquiry');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderUnits(unitsData);
+            
+            // Set up event listeners
+            categoryFilter.addEventListener('change', filterUnits);
+            commitmentFilter.addEventListener('change', filterUnits);
+            unitSearch.addEventListener('input', filterUnits);
+            
+            // Populate unit interest dropdown
+            unitsData.forEach(unit => {
+                const option = document.createElement('option');
+                option.value = unit.id;
+                option.textContent = unit.name;
+                unitInterestSelect.appendChild(option);
+            });
+            
+            closeModal.addEventListener('click', closeJoinModal);
+            cancelJoin.addEventListener('click', closeJoinModal);
+            
+            joinForm.addEventListener('submit', handleJoinFormSubmit);
+            
+            generalInquiryBtn.addEventListener('click', function() {
+                openJoinModal('general');
+            });
+            
+            // Close modal when clicking outside
+            joinModal.addEventListener('click', function(e) {
+                if (e.target === joinModal) {
+                    closeJoinModal();
+                }
+            });
+        });
+
+        // Render units to the container
+        function renderUnits(units) {
+            unitsContainer.innerHTML = '';
+            
+            if (units.length === 0) {
+                unitsContainer.innerHTML = `
+                    <div class="no-results" style="grid-column: 1 / -1; text-align: center; padding: var(--spacing-2xl);">
+                        <h3>No units found matching your criteria</h3>
+                        <p>Try adjusting your filters or search terms</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            units.forEach(unit => {
+                const card = document.createElement('div');
+                card.className = 'unit-card';
+                card.innerHTML = `
+                    <div class="unit-header">
+                        <h3 class="unit-name">${unit.name}</h3>
+                        <div class="unit-leader">
+                            <div class="leader-avatar">
+                                <img src="${unit.leader.avatar}" alt="${unit.leader.name}">
+                            </div>
+                            <div class="leader-info">
+                                <h4>${unit.leader.name}</h4>
+                                <p>Unit Leader</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="unit-details">
+                        <p class="unit-description">${unit.description}</p>
+                        
+                        <div class="unit-responsibilities">
+                            <h4 class="responsibilities-title">Key Responsibilities</h4>
+                            <div class="responsibilities-list">
+                                ${unit.responsibilities.map(resp => `
+                                    <div class="responsibility-item">
+                                        <span class="responsibility-check">✓</span>
+                                        <span>${resp}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="unit-requirements">
+                            <h4 class="requirements-title">Requirements</h4>
+                            <div class="requirements-list">
+                                ${unit.requirements.map(req => `
+                                    <span class="requirement-tag">${req}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="unit-actions">
+                        <div class="unit-size">${unit.teamSize}</div>
+                        <button class="join-btn" data-unit-id="${unit.id}" data-unit-name="${unit.name}">Join Unit</button>
+                    </div>
+                `;
+                
+                unitsContainer.appendChild(card);
+            });
+            
+            // Add event listeners to join buttons
+            document.querySelectorAll('.join-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    openJoinModal(
+                        this.getAttribute('data-unit-id'),
+                        this.getAttribute('data-unit-name')
+                    );
+                });
+            });
+        }
+
+        // Filter units based on search and filters
+        function filterUnits() {
+            const categoryValue = categoryFilter.value;
+            const commitmentValue = commitmentFilter.value;
+            const searchValue = unitSearch.value.toLowerCase();
+            
+            const filteredUnits = unitsData.filter(unit => {
+                // Category filter
+                if (categoryValue !== 'all' && unit.category !== categoryValue) {
+                    return false;
+                }
+                
+                // Commitment filter
+                if (commitmentValue !== 'all' && unit.commitment !== commitmentValue) {
+                    return false;
+                }
+                
+                // Search filter
+                if (searchValue && !(
+                    unit.name.toLowerCase().includes(searchValue) ||
+                    unit.description.toLowerCase().includes(searchValue) ||
+                    unit.leader.name.toLowerCase().includes(searchValue) ||
+                    unit.responsibilities.some(resp => resp.toLowerCase().includes(searchValue)) ||
+                    unit.requirements.some(req => req.toLowerCase().includes(searchValue))
+                )) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            renderUnits(filteredUnits);
+        }
+
+        // Open the join modal
+        function openJoinModal(unitId, unitName) {
+            if (unitId === 'general') {
+                modalUnitName.textContent = 'Service Unit Interest';
+                selectedUnitId.value = 'general';
+                unitInterestSelect.value = '';
+            } else {
+                modalUnitName.textContent = `Join ${unitName}`;
+                selectedUnitId.value = unitId;
+                unitInterestSelect.value = unitId;
+            }
+            
+            joinModal.classList.add('active');
+        }
+
+        // Close the join modal
+        function closeJoinModal() {
+            joinModal.classList.remove('active');
+            joinForm.reset();
+        }
+
+        // Handle form submission
+        function handleJoinFormSubmit(e) {
+            e.preventDefault();
+            
+            const formData = {
+                unitId: selectedUnitId.value,
+                unitName: selectedUnitId.value === 'general' ? 'General Interest' : 
+                    unitsData.find(u => u.id == selectedUnitId.value).name,
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                unitInterest: document.getElementById('unitInterest').value,
+                experience: document.getElementById('experience').value,
+                availability: document.getElementById('availability').value,
+                message: document.getElementById('message').value
+            };
+            
+            console.log('Application submitted:', formData);
+            
+            // Show success message
+            if (formData.unitId === 'general') {
+                alert('Thank you for your interest in serving! Our team will contact you with recommendations based on your skills and availability.');
+            } else {
+                alert(`Thank you for your application to join ${formData.unitName}! Our unit leader will contact you within a week.`);
+            }
+            
+            // Close modal
+            closeJoinModal();
+        }
+    </script>
+</body>
+</html>

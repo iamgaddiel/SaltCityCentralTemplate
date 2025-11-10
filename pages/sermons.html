@@ -167,99 +167,51 @@
 </section>
 
     <!-- ========== SERMON FILTERS SECTION ========== -->
-    <section class="filters-section section-padding bg-light">
-        <div class="container">
-            <div class="filters-container">
-                <h3 class="filters-title">Find Your Sermon</h3>
-                <p class="filters-subtitle">Filter by series, speaker, topic, or search by keyword</p>
-                
-                <!-- Search First (Mobile Priority) -->
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" placeholder="Search by title, speaker, or keyword..." class="search-input" id="sermonSearch">
-                        <button class="search-btn" aria-label="Search">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <button class="clear-filters-btn" id="clearFilters">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                        Clear All Filters
-                    </button>
-                </div>
-                
-                <div class="filters-grid">
-                    <!-- Series Filter -->
-                    <div class="filter-group">
-                        <label class="filter-label">
-                            Series
-                            <span class="active-filters-count" style="display: none;">0</span>
-                        </label>
-                        <div class="filter-options">
-                            <button class="filter-option active" data-filter="all" data-type="series">All Series</button>
-                            <button class="filter-option" data-filter="growing-spiritually" data-type="series">Growing Spiritually</button>
-                            <button class="filter-option" data-filter="identity-in-christ" data-type="series">Identity in Christ</button>
-                            <button class="filter-option" data-filter="purpose-driven" data-type="series">Purpose Driven</button>
-                            <button class="filter-option" data-filter="relationships" data-type="series">Relationships</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Speaker Filter -->
-                    <div class="filter-group">
-                        <label class="filter-label">
-                            Speaker
-                            <span class="active-filters-count" style="display: none;">0</span>
-                        </label>
-                        <div class="filter-options">
-                            <button class="filter-option active" data-filter="all" data-type="speaker">All Speakers</button>
-                            <button class="filter-option" data-filter="pastor-tobore-david" data-type="speaker">Pastor Tobore</button>
-                            <button class="filter-option" data-filter="pastor-seun-tobore-david" data-type="speaker">Pastor Seun</button>
-                            <button class="filter-option" data-filter="pastor-edison-iboyi" data-type="speaker">Pastor Edison</button>
-                            <button class="filter-option" data-filter="guest-speakers" data-type="speaker">Guest Speakers</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Topic Filter -->
-                    <div class="filter-group">
-                        <label class="filter-label">
-                            Topic
-                            <span class="active-filters-count" style="display: none;">0</span>
-                        </label>
-                        <div class="filter-options">
-                            <button class="filter-option active" data-filter="all" data-type="topic">All Topics</button>
-                            <button class="filter-option" data-filter="faith" data-type="topic">Faith</button>
-                            <button class="filter-option" data-filter="purpose" data-type="topic">Purpose</button>
-                            <button class="filter-option" data-filter="relationships" data-type="topic">Relationships</button>
-                            <button class="filter-option" data-filter="prayer" data-type="topic">Prayer</button>
-                            <button class="filter-option" data-filter="discipleship" data-type="topic">Discipleship</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ========== SERMON FILTERS SECTION ========== -->
+<section class="filters-section" id="filtersSection">
+    <div class="container filters-container">
 
-    <!-- ========== SERMONS GRID SECTION ========== -->
-    <section class="sermons-grid-section section-padding">
-        <div class="container">
-            <div class="section-header">
-                <h2>Recent Sermons</h2>
-                <p>Explore our collection of biblical teaching and preaching</p>
-            </div>
-            
-            <div class="sermons-grid" id="sermonsGrid">
-                <!-- Sermon cards will be dynamically inserted here -->
-            </div>
-            
-            <div class="load-more-container">
-                <button class="btn btn-outline" id="loadMoreBtn">Load More Sermons</button>
+        <!-- Search -->
+        <div class="search-wrapper">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search sermons..." id="searchInput">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                </svg>
             </div>
         </div>
-    </section>
+
+        <!-- Dropdown Filters -->
+        <div class="filter-dropdowns">
+            <select class="filter-select" id="seriesFilter">
+                <option value="all">All Series</option>
+            </select>
+
+            <select class="filter-select" id="speakerFilter">
+                <option value="all">All Speakers</option>
+            </select>
+
+            <select class="filter-select" id="topicFilter">
+                <option value="all">All Topics</option>
+            </select>
+        </div>
+
+        <!-- Clear filters -->
+        <div class="clear-filters">
+            <button class="clear-btn" id="clearBtn">Clear Filters</button>
+        </div>
+
+        <div class="results-info">
+            Showing <span class="results-count" id="resultCount">0</span> sermons
+        </div>
+
+        <!-- Sermons Grid -->
+        <section class="sermons-grid-section">
+            <div class="sermons-grid" id="sermonsGrid"></div>
+        </section>
+    </div>
+</section>
+
 
     <!-- ========== SERIES SECTION ========== -->
     <section class="series-section section-padding bg-light">
@@ -416,7 +368,11 @@
     </button>
 
 
+
+
     <!-- Scripts -->
+     <script src="https://www.youtube.com/iframe_api"></script>
+
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/navigation.js"></script>
     <script src="../assets/js/header-scroll.js"></script>

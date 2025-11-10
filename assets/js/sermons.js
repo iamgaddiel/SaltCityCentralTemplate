@@ -1,330 +1,175 @@
-// =====================
-// GLOBAL STATE
-// =====================
-let allSermons = [];
-let player;
-let currentVideoId = null;
-let filters = {
-    series: "all",
-    speaker: "all",
-    topic: "all",
-    search: ""
-};
-let sortBy = "newest";
+/* ================================
+   LOAD DATA
+================================ */
+let sermons = [];
+let series = [];
+let speakers = [];
 
-function slugify(text) {
-    return text.toLowerCase().replace(/\s+/g, "-");
-}
+const sermonsGrid     = document.getElementById("sermonsGrid");
+const searchInput     = document.getElementById("searchInput");
+const seriesFilter    = document.getElementById("seriesFilter");
+const speakerFilter   = document.getElementById("speakerFilter");
+const topicFilter     = document.getElementById("topicFilter");
+const clearBtn        = document.getElementById("clearBtn");
+const resultCount     = document.getElementById("resultCount");
 
-function updateFilterCount() {
-    const activeCount = Object.values(filters).filter(v => v !== "all" && v !== "").length;
-    const clearBtn = document.getElementById("clearFilters");
-    
-    if (activeCount > 0) {
-        clearBtn.classList.add("visible");
-        clearBtn.style.display = "inline-flex";
-    } else {
-        clearBtn.classList.remove("visible");
-        clearBtn.style.display = "none";
-    }
-}
+/* Featured Sermon Elements */
+const featuredPlayer  = document.getElementById("player");
+const featuredBadge   = document.querySelector(".section-badge");
+const featuredTitle   = document.querySelector(".sermon-title");
+const featuredDesc    = document.querySelector(".sermon-description");
+const featuredDate    = document.querySelector(".sermon-date");
+const featuredSeries  = document.querySelector(".sermon-series");
+const featuredSpeaker = document.querySelector(".speaker-info h4");
+const featuredAvatar  = document.querySelector(".speaker-avatar img");
+const btnYouTube      = document.getElementById("watchOnYouTube");
+const btnAudio        = document.getElementById("downloadAudio");
+const btnNotes        = document.getElementById("sermonNotes");
+const spotifyLink     = document.querySelector(".platform-link.spotify");
 
-function applyFilters() {
-    let filtered = [...allSermons];
+let youtubePlayerInstance = null;
 
-    // Filter by series
-    if (filters.series !== "all") {
-        filtered = filtered.filter(s => slugify(s.series) === filters.series);
-    }
+/* Load JSON */
+fetch("../assets/data/sermons.json")
+    .then(res => res.json())
+    .then(data => {
+        sermons  = data.sermons;
+        series   = data.series;
+        speakers = data.speakers;
 
-    // Filter by speaker
-    if (filters.speaker !== "all") {
-        filtered = filtered.filter(s => slugify(s.speaker) === filters.speaker);
-    }
-
-    // Filter by topic
-    if (filters.topic !== "all") {
-        filtered = filtered.filter(s => s.topic === filters.topic);
-    }
-
-    // Search filter
-    if (filters.search.trim() !== "") {
-        const keyword = filters.search.toLowerCase();
-        filtered = filtered.filter(s =>
-            s.title.toLowerCase().includes(keyword) ||
-            s.description.toLowerCase().includes(keyword) ||
-            s.speaker.toLowerCase().includes(keyword) ||
-            s.series.toLowerCase().includes(keyword)
-        );
-    }
-
-    // Apply sorting
-    filtered = sortSermons(filtered, sortBy);
-
-    renderAllSermons(filtered);
-    updateSermonCount(filtered.length);
-    updateFilterCount();
-}
-
-function sortSermons(sermons, sortType) {
-    const sorted = [...sermons];
-    
-    switch(sortType) {
-        case 'newest':
-            return sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
-        case 'oldest':
-            return sorted.sort((a, b) => new Date(a.date) - new Date(b.date));
-        case 'title':
-            return sorted.sort((a, b) => a.title.localeCompare(b.title));
-        case 'speaker':
-            return sorted.sort((a, b) => a.speaker.localeCompare(b.speaker));
-        default:
-            return sorted;
-    }
-}
-
-function updateSermonCount(count) {
-    const countElement = document.getElementById("sermonCount");
-    if (countElement) {
-        countElement.textContent = count;
-    }
-}
-
-function clearAllFilters() {
-    filters = {
-        series: "all",
-        speaker: "all",
-        topic: "all",
-        search: ""
-    };
-    
-    // Reset all filter buttons
-    document.querySelectorAll(".filter-option").forEach(btn => {
-        btn.classList.remove("active");
-        if (btn.dataset.filter === "all") {
-            btn.classList.add("active");
-        }
+        populateDropdowns();
+        renderSermons(sermons);
+        loadFeatured(sermons[0]); // latest sermon
     });
-    
-    // Clear search input
-    const searchInput = document.getElementById("sermonSearch");
-    if (searchInput) searchInput.value = "";
-    
-    applyFilters();
-}
 
-// =====================
-// FETCH SERMON DATA
-// =====================
-async function fetchSermons() {
-    try {
-        const response = await fetch("../assets/data/sermons.json");
-        const data = await response.json();
+/* ================================
+   POPULATE DROPDOWNS
+================================ */
+function populateDropdowns() {
 
-        allSermons = data.sermons;
+    series.forEach(item => {
+        seriesFilter.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+    });
 
-        updateFeaturedSermon();     // show latest sermon
-        renderAllSermons();         // populate grid
-        initFilters();              // initialize filter buttons
+    speakers.forEach(item => {
+        speakerFilter.innerHTML += `<option value="${item.name}">${item.name}</option>`;
+    });
 
-    } catch (error) {
-        console.error("Error loading sermons.json:", error);
-    }
-}
-
-fetchSermons();
-
-// =====================
-// UPDATE FEATURED SERMON
-// =====================
-function updateFeaturedSermon(sermonData = null) {
-    if (!allSermons.length) return;
-
-    const featured = sermonData || allSermons[0];
-    currentVideoId = featured.youtubeId;
-
-    // Update text
-    document.querySelector(".sermon-title").textContent = featured.title;
-    document.querySelector(".sermon-description").textContent = featured.description;
-    document.querySelector(".sermon-date").textContent = formatDate(featured.date);
-    document.querySelector(".sermon-series").textContent = featured.series;
-
-    // Update speaker information
-    const speakerData = getSpeaker(featured.speaker);
-    document.querySelector(".speaker-info h4").textContent = speakerData.name;
-    document.querySelector(".speaker-info p").textContent = speakerData.role;
-    document.querySelector(".speaker-avatar img").src = speakerData.avatar;
-
-    // Update buttons
-    document.getElementById("watchOnYouTube").onclick = () => window.open(
-        `https://www.youtube.com/watch?v=${featured.youtubeId}`,
-        "_blank"
-    );
-
-    document.getElementById("downloadAudio").onclick = () => {
-        window.open(featured.audioUrl, "_blank");
-    };
-
-    document.getElementById("sermonNotes").onclick = () => {
-        window.open(featured.notes, "_blank");
-    };
-
-    loadVideo(featured.youtubeId);
-    
-    // Scroll to featured section smoothly
-    document.querySelector('.featured-sermon').scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+    // topic list from unique sermon topics
+    const topics = [...new Set(sermons.map(s => s.topic))];
+    topics.forEach(topic => {
+        topicFilter.innerHTML += `<option value="${topic}">${topic}</option>`;
     });
 }
 
-// =====================
-// RENDER SERMON GRID
-// =====================
-function renderAllSermons(list = allSermons) {
-    const grid = document.getElementById("sermonsGrid");
-    grid.innerHTML = "";
+/* ================================
+   RENDER SERMON CARDS
+================================ */
+function renderSermons(list) {
 
-    if (list.length === 0) {
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--color-medium-grey); padding: var(--spacing-xl);">No sermons found matching your criteria.</p>';
-        return;
-    }
+    sermonsGrid.innerHTML = "";
 
     list.forEach(sermon => {
-        const card = document.createElement('div');
-        card.className = 'sermon-card';
-        card.dataset.id = sermon.id;
-        
-        card.innerHTML = `
+        sermonsGrid.innerHTML += `
+        <div class="sermon-card" data-id="${sermon.id}">
             <div class="sermon-image">
-                <img src="${sermon.artwork}" alt="${sermon.title}" loading="lazy">
+                <img src="${sermon.artwork}" alt="${sermon.title}">
                 <div class="play-overlay"><div class="play-icon">▶</div></div>
             </div>
             <div class="sermon-content">
-                <div class="sermon-meta">
-                    <span class="sermon-date">${formatDate(sermon.date)}</span>
-                    <span class="sermon-duration">${sermon.duration}</span>
-                </div>
                 <h3 class="sermon-title">${sermon.title}</h3>
-                <p class="sermon-description">${sermon.description}</p>
+                <p class="sermon-meta">${sermon.speaker} • ${formatDate(sermon.date)}</p>
             </div>
-        `;
-        
+        </div>`;
+    });
+
+    document.querySelectorAll(".sermon-card").forEach(card => {
         card.addEventListener("click", () => {
-            const clickedSermon = allSermons.find(s => s.id === sermon.id);
-            updateFeaturedSermon(clickedSermon);
+            const id = card.getAttribute("data-id");
+            const sermon = sermons.find(s => s.id === id);
+            loadFeatured(sermon);
+            scrollToFeatured();
         });
-        
-        grid.appendChild(card);
     });
+
+    resultCount.textContent = list.length;
 }
 
-// =====================
-// YOUTUBE PLAYER API
-// =====================
-function loadVideo(videoId) {
-    currentVideoId = videoId;
+/* ================================
+   UPDATE FEATURED SERMON
+================================ */
+function loadFeatured(sermon) {
 
-    if (!player) {
-        createYouTubePlayer(videoId);
+    featuredBadge.textContent = "Selected Message";
+
+    featuredTitle.textContent   = sermon.title;
+    featuredDesc.textContent    = sermon.description;
+    featuredDate.textContent    = formatDate(sermon.date);
+    featuredSeries.textContent  = sermon.series;
+    featuredSpeaker.textContent = sermon.speaker;
+// find matching speaker for this sermon
+    const speakerObj = speakers.find(s => s.name === sermon.speaker);
+
+    featuredAvatar.src = speakerObj?.avatar || "../assets/images/default-avatar.jpg";
+
+    btnYouTube.href = `https://youtube.com/watch?v=${sermon.youtubeId}`;
+    btnAudio.href   = sermon.audioUrl;
+    btnNotes.href   = sermon.notes;
+    spotifyLink.href = sermon.spotifyUrl;
+
+    if (youtubePlayerInstance) {
+        youtubePlayerInstance.loadVideoById(sermon.youtubeId);
     } else {
-        player.loadVideoById(videoId);
-    }
-}
-
-function createYouTubePlayer(videoId) {
-    const tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.body.appendChild(tag);
-
-    window.onYouTubeIframeAPIReady = () => {
-        player = new YT.Player("player", {
-            height: "100%",
-            width: "100%",
-            videoId,
-            playerVars: { 
-                playsinline: 1, 
-                rel: 0, 
-                modestbranding: 1, 
-                controls: 1 
-            },
-        });
-    };
-}
-
-// =====================
-// FILTER INITIALIZATION
-// =====================
-function initFilters() {
-    // Series/Speaker/Topic filter buttons
-    document.querySelectorAll(".filter-option").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const filterGroup = btn.closest(".filter-group");
-            const label = filterGroup.querySelector(".filter-label").textContent.toLowerCase();
-            const value = btn.dataset.filter;
-
-            // Update filter state
-            if (label.includes("series")) {
-                filters.series = value;
-            } else if (label.includes("speaker")) {
-                filters.speaker = value;
-            } else if (label.includes("topic")) {
-                filters.topic = value;
-            }
-
-            // Update active state
-            filterGroup.querySelectorAll(".filter-option").forEach(b => 
-                b.classList.remove("active")
-            );
-            btn.classList.add("active");
-
-            applyFilters();
-        });
-    });
-
-    // Search input
-    const searchField = document.querySelector(".search-input");
-    if (searchField) {
-        searchField.addEventListener("input", (e) => {
-            filters.search = e.target.value.toLowerCase().trim();
-            applyFilters();
+        youtubePlayerInstance = new YT.Player("player", {
+            height: "390",
+            width: "640",
+            videoId: sermon.youtubeId
         });
     }
 }
 
-// =====================
-// HELPERS
-// =====================
-function getSpeaker(speakerName) {
-    const speakers = {
-        "Pastor Tobore David": {
-            name: "Pastor Tobore David",
-            role: "Senior Pastor",
-            avatar: "../assets/images/leadership/pastor-tobore.jpg"
-        },
-        "Pastor Faith Johnson": {
-            name: "Pastor Faith Johnson",
-            role: "Associate Pastor",
-            avatar: "../assets/images/leadership/leader-1.jpg"
-        },
-        "Brother Michael Adeyemi": {
-            name: "Brother Michael Adeyemi",
-            role: "Youth Pastor",
-            avatar: "../assets/images/leadership/leader-2.jpg"
-        }
-    };
-
-    return speakers[speakerName] || {
-        name: speakerName,
-        role: "Guest Speaker",
-        avatar: "../assets/images/sermons/guest-speaker.jpg"
-    };
+/* Scroll to featured sermon */
+function scrollToFeatured() {
+    document.querySelector(".featured-sermon").scrollIntoView({ behavior: "smooth" });
 }
 
-function formatDate(dateString) {
-    return new Date(dateString).toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric"
-    });
+/* ================================
+   FILTER LOGIC
+================================ */
+function applyFilters() {
+
+    const searchVal  = searchInput.value.toLowerCase();
+    const fSeries    = seriesFilter.value;
+    const fSpeaker   = speakerFilter.value;
+    const fTopic     = topicFilter.value;
+
+    const filtered = sermons.filter(s => (
+        (fSeries === "all"  || s.series === fSeries) &&
+        (fSpeaker === "all" || s.speaker === fSpeaker) &&
+        (fTopic === "all"   || s.topic === fTopic) &&
+        (s.title.toLowerCase().includes(searchVal) ||
+         s.speaker.toLowerCase().includes(searchVal))
+    ));
+
+    renderSermons(filtered);
+}
+
+/* Events */
+searchInput.addEventListener("input", applyFilters);
+seriesFilter.addEventListener("change", applyFilters);
+speakerFilter.addEventListener("change", applyFilters);
+topicFilter.addEventListener("change", applyFilters);
+
+clearBtn.addEventListener("click", () => {
+    searchInput.value = "";
+    seriesFilter.value = "all";
+    speakerFilter.value = "all";
+    topicFilter.value = "all";
+    renderSermons(sermons);
+});
+
+/* Helpers */
+function formatDate(dateStr) {
+    const options = { year: "numeric", month: "short", day: "numeric" };
+    return new Date(dateStr).toLocaleDateString("en-US", options);
 }

@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join a Company Group at SaltCity Central - Small groups for discipleship, fellowship, and growth.">
+    <title>Company Groups | SaltCity Central</title>
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    
+    <style>
+        /* Additional styles specific to company groups page */
+        .company-hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding-top: 120px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: var(--color-white);
+            overflow: hidden;
+        }
+        
+        .company-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .company-hero-badge {
+            display: inline-block;
+            background: rgba(212, 165, 116, 0.15);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-accent-gold);
+        }
+        
+        .company-hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--color-white), var(--color-accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .company-hero-text {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--color-light-grey);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .groups-section {
+            padding: var(--spacing-2xl) 0;
+            background: rgba(212, 165, 116, 0.03);
+        }
+        
+        .groups-controls {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            align-items: end;
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 400px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            border-radius: 30px;
+            font-size: 1rem;
+            background: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-accent-gold);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--color-medium-grey);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .location-filter {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+        
+        .filter-select {
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            border-radius: 30px;
+            font-size: 1rem;
+            background: var(--color-white);
+            color: var(--color-medium-grey);
+            min-width: 200px;
+            cursor: pointer;
+        }
+        
+        .groups-table-container {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .groups-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .groups-table th {
+            background: rgba(212, 165, 116, 0.1);
+            padding: var(--spacing-lg);
+            text-align: left;
+            font-weight: 600;
+            color: var(--color-black);
+            border-bottom: 1px solid var(--color-light-grey);
+        }
+        
+        .groups-table td {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--color-light-grey);
+            color: var(--color-medium-grey);
+        }
+        
+        .groups-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .groups-table tr:hover {
+            background: rgba(212, 165, 116, 0.03);
+        }
+        
+        .group-name {
+            font-weight: 600;
+            color: var(--color-black);
+        }
+        
+        .group-leader {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .leader-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .leader-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .leader-name {
+            font-weight: 500;
+            color: var(--color-black);
+        }
+        
+        .group-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .group-location {
+            font-weight: 500;
+            color: var(--color-black);
+        }
+        
+        .group-time {
+            font-size: 0.875rem;
+        }
+        
+        .group-demographic {
+            font-size: 0.875rem;
+        }
+        
+        .join-btn {
+            background: var(--gradient-warm);
+            color: var(--color-white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+        
+        .join-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .table-footer {
+            padding: var(--spacing-lg);
+            background: rgba(212, 165, 116, 0.05);
+            text-align: center;
+            border-top: 1px solid var(--color-light-grey);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-black);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--color-medium-grey);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-black);
+        }
+        
+        .form-input, .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--color-accent-gold);
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .submit-btn {
+            background: var(--gradient-warm);
+            color: var(--color-white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .cancel-btn {
+            background: var(--color-white);
+            color: var(--color-medium-grey);
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+        
+        .cancel-btn:hover {
+            border-color: var(--color-accent-gold);
+            color: var(--color-accent-warm);
+        }
+        
+        @media (max-width: 1024px) {
+            .groups-controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .location-filter {
+                justify-content: flex-start;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .company-hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .groups-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .groups-table th,
+            .groups-table td {
+                padding: var(--spacing-md);
+            }
+            
+            .group-leader {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .company-hero-title {
+                font-size: 2rem;
+            }
+            
+            .location-filter {
+                flex-direction: column;
+            }
+            
+            .filter-select {
+                min-width: 100%;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- ========== HEADER / NAVIGATION ========== -->
+    <header class="site-header" id="mainHeader">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <a href="../index.html">
+                        <img src="../assets/images/logo/logo-white.svg" alt="SaltCity Central Logo" class="logo">
+                    </a>
+                    <span class="tagline">Discipling believers to fulfil their ministry</span>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="main-nav" id="mainNav">
+                    <ul class="nav-list">
+                        <li><a href="../index.html" class="nav-link">Home</a></li>
+                        <li><a href="sermons.html" class="nav-link">Sermons</a></li>
+                        <li><a href="programs.html" class="nav-link">Programs</a></li>
+                        <li><a href="giving.html" class="nav-link">Give</a></li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="company-hero">
+        <div class="container">
+            <div class="company-hero-content">
+                <div class="company-hero-badge">Get Connected</div>
+                <h1 class="company-hero-title">Company Groups</h1>
+                <p class="company-hero-text">
+                    Discipleship happens in relationships. Connect with a small group that meets weekly to study the Word, pray together, and grow in faith.
+                </p>
+                <a href="#groups" class="btn btn-primary">Browse Groups</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== GROUPS SECTION ========== -->
+    <section class="groups-section section-padding" id="groups">
+        <div class="container">
+            <div class="section-header">
+                <h2>Find Your Company Group</h2>
+                <p>Browse our network of small groups across Warri and online</p>
+            </div>
+            
+            <div class="groups-controls">
+                <div class="search-box">
+                    <input type="text" placeholder="Search by group name, leader, or location..." class="search-input" id="groupSearch">
+                    <button class="search-btn" aria-label="Search">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="location-filter">
+                    <select class="filter-select" id="locationFilter">
+                        <option value="all">All Locations</option>
+                        <option value="central">Central Warri</option>
+                        <option value="okumagba">Okumagba Layout</option>
+                        <option value="ugbuwangue">Ugbuwangue</option>
+                        <option value="enerhen">Enerhen</option>
+                        <option value="effurun">Effurun</option>
+                        <option value="pti">PTI Area</option>
+                        <option value="ugbokodo">Ugbokodo</option>
+                        <option value="ode-itsekiri">Ode-Itsekiri</option>
+                        <option value="online">Online</option>
+                    </select>
+                    
+                    <select class="filter-select" id="demographicFilter">
+                        <option value="all">All Groups</option>
+                        <option value="youth">Youth & Students</option>
+                        <option value="young-adults">Young Adults</option>
+                        <option value="adults">Adults</option>
+                        <option value="men">Men Only</option>
+                        <option value="women">Women Only</option>
+                        <option value="couples">Couples</option>
+                        <option value="families">Families</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="groups-table-container">
+                <table class="groups-table">
+                    <thead>
+                        <tr>
+                            <th>Group Name</th>
+                            <th>Leader</th>
+                            <th>Location & Time</th>
+                            <th>Focus</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="groupsTableBody">
+                        <!-- Groups will be populated by JavaScript -->
+                    </tbody>
+                </table>
+                
+                <div class="table-footer">
+                    <p>Can't find a group that fits your schedule or location? <a href="contact.html" class="inline-link">Contact us</a> and we'll help you find the right fit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== JOIN GROUP MODAL ========== -->
+    <div class="modal" id="joinModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalGroupName">Join Company Group</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            
+            <form id="joinForm">
+                <input type="hidden" id="selectedGroupId">
+                
+                <div class="form-group">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" id="fullName" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location" class="form-label">Your Location</label>
+                    <input type="text" id="location" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Message (Optional)</label>
+                    <textarea id="message" class="form-input" rows="4" placeholder="Tell us a bit about yourself and why you're interested in this group..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Submit Request</button>
+                    <button type="button" class="cancel-btn" id="cancelJoin">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER SECTION ========== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-column footer-about">
+                    <div class="footer-logo">
+                        <img src="../assets/images/logo/logo-white.svg" alt="SaltCity Central">
+                    </div>
+                    <p class="footer-tagline">Discipling men to fulfil their ministry</p>
+                    <p class="footer-mission">
+                        We are a community of believers committed to making disciples through authentic relationships, biblical teaching, and intentional training.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="our-story.html">Our Story</a></li>
+                        <li><a href="programs.html">Programs</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Visit Us</h4>
+                    <div class="footer-location">
+                        <p class="location-address">
+                            Centre of Discipleship<br>
+                            20 Okumagba Avenue<br>
+                            Warri, Delta State
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Connect</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <a href="mailto:info@saltcitycentral.org">info@saltcitycentral.org</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright">© 2025 SaltCity Central. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 3l-7 7h4v7h6v-7h4l-7-7z"/>
+        </svg>
+    </button>
+
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/navigation.js"></script>
+    <script src="../assets/js/header-scroll.js"></script>
+    
+    <script>
+        // Sample data for groups - in a real app, this would come from a database
+        const groupsData = [
+            {
+                id: 1,
+                name: "Grace Company",
+                leader: { name: "Brother Johnson", avatar: "../assets/images/leadership/leader-1.jpg" },
+                location: "Okumagba Avenue, Warri",
+                time: "Tuesdays, 5:30 PM",
+                focus: "Young Professionals",
+                area: "central",
+                demographic: "young-adults"
+            },
+            {
+                id: 2,
+                name: "City Youth Company",
+                leader: { name: "Sister Faith", avatar: "../assets/images/leadership/leader-2.jpg" },
+                location: "PTI Road, Effurun",
+                time: "Fridays, 6:00 PM",
+                focus: "Youth & Students",
+                area: "effurun",
+                demographic: "youth"
+            },
+            {
+                id: 3,
+                name: "Family Fellowship",
+                leader: { name: "Brother & Sister James", avatar: "../assets/images/leadership/leader-3.jpg" },
+                location: "Enerhen, Warri",
+                time: "Sundays, 4:00 PM",
+                focus: "Couples & Families",
+                area: "enerhen",
+                demographic: "families"
+            },
+            {
+                id: 4,
+                name: "Digital Disciples",
+                leader: { name: "Brother Daniel", avatar: "../assets/images/leadership/leader-4.jpg" },
+                location: "Online (Zoom)",
+                time: "Wednesdays, 7:00 PM",
+                focus: "All Adults",
+                area: "online",
+                demographic: "adults"
+            },
+            {
+                id: 5,
+                name: "Men of Valor",
+                leader: { name: "Brother Samuel", avatar: "../assets/images/leadership/leader-5.jpg" },
+                location: "Ugbuwangue, Warri",
+                time: "Saturdays, 8:00 AM",
+                focus: "Men Only",
+                area: "ugbuwangue",
+                demographic: "men"
+            },
+            {
+                id: 6,
+                name: "Women of Purpose",
+                leader: { name: "Sister Grace", avatar: "../assets/images/leadership/leader-6.jpg" },
+                location: "Jakpa Road, Effurun",
+                time: "Thursdays, 4:00 PM",
+                focus: "Women Only",
+                area: "effurun",
+                demographic: "women"
+            },
+            {
+                id: 7,
+                name: "Anchor Company",
+                leader: { name: "Brother Michael", avatar: "../assets/images/leadership/leader-1.jpg" },
+                location: "Ode-Itsekiri",
+                time: "Mondays, 5:00 PM",
+                focus: "Adults",
+                area: "ode-itsekiri",
+                demographic: "adults"
+            },
+            {
+                id: 8,
+                name: "Harvest Company",
+                leader: { name: "Sister Precious", avatar: "../assets/images/leadership/leader-2.jpg" },
+                location: "Ugbokodo",
+                time: "Wednesdays, 5:30 PM",
+                focus: "Young Adults",
+                area: "ugbokodo",
+                demographic: "young-adults"
+            }
+            // Add more groups as needed
+        ];
+
+        // DOM elements
+        const groupsTableBody = document.getElementById('groupsTableBody');
+        const locationFilter = document.getElementById('locationFilter');
+        const demographicFilter = document.getElementById('demographicFilter');
+        const groupSearch = document.getElementById('groupSearch');
+        const joinModal = document.getElementById('joinModal');
+        const modalGroupName = document.getElementById('modalGroupName');
+        const selectedGroupId = document.getElementById('selectedGroupId');
+        const closeModal = document.getElementById('closeModal');
+        const cancelJoin = document.getElementById('cancelJoin');
+        const joinForm = document.getElementById('joinForm');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderGroups(groupsData);
+            
+            // Set up event listeners
+            locationFilter.addEventListener('change', filterGroups);
+            demographicFilter.addEventListener('change', filterGroups);
+            groupSearch.addEventListener('input', filterGroups);
+            
+            closeModal.addEventListener('click', closeJoinModal);
+            cancelJoin.addEventListener('click', closeJoinModal);
+            
+            joinForm.addEventListener('submit', handleJoinFormSubmit);
+            
+            // Close modal when clicking outside
+            joinModal.addEventListener('click', function(e) {
+                if (e.target === joinModal) {
+                    closeJoinModal();
+                }
+            });
+        });
+
+        // Render groups to the table
+        function renderGroups(groups) {
+            groupsTableBody.innerHTML = '';
+            
+            if (groups.length === 0) {
+                groupsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: var(--spacing-2xl);">
+                            No groups found matching your criteria. Try adjusting your filters.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            groups.forEach(group => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="group-name">${group.name}</div>
+                    </td>
+                    <td>
+                        <div class="group-leader">
+                            <div class="leader-avatar">
+                                <img src="${group.leader.avatar}" alt="${group.leader.name}">
+                            </div>
+                            <div class="leader-name">${group.leader.name}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="group-details">
+                            <div class="group-location">${group.location}</div>
+                            <div class="group-time">${group.time}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="group-demographic">${group.focus}</div>
+                    </td>
+                    <td>
+                        <button class="join-btn" data-group-id="${group.id}" data-group-name="${group.name}">Join Group</button>
+                    </td>
+                `;
+                
+                groupsTableBody.appendChild(row);
+            });
+            
+            // Add event listeners to join buttons
+            document.querySelectorAll('.join-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    openJoinModal(
+                        this.getAttribute('data-group-id'),
+                        this.getAttribute('data-group-name')
+                    );
+                });
+            });
+        }
+
+        // Filter groups based on search and filters
+        function filterGroups() {
+            const locationValue = locationFilter.value;
+            const demographicValue = demographicFilter.value;
+            const searchValue = groupSearch.value.toLowerCase();
+            
+            const filteredGroups = groupsData.filter(group => {
+                // Location filter
+                if (locationValue !== 'all' && group.area !== locationValue) {
+                    return false;
+                }
+                
+                // Demographic filter
+                if (demographicValue !== 'all' && group.demographic !== demographicValue) {
+                    return false;
+                }
+                
+                // Search filter
+                if (searchValue && !(
+                    group.name.toLowerCase().includes(searchValue) ||
+                    group.leader.name.toLowerCase().includes(searchValue) ||
+                    group.location.toLowerCase().includes(searchValue) ||
+                    group.focus.toLowerCase().includes(searchValue)
+                )) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            renderGroups(filteredGroups);
+        }
+
+        // Open the join modal
+        function openJoinModal(groupId, groupName) {
+            selectedGroupId.value = groupId;
+            modalGroupName.textContent = `Join ${groupName}`;
+            joinModal.classList.add('active');
+        }
+
+        // Close the join modal
+        function closeJoinModal() {
+            joinModal.classList.remove('active');
+            joinForm.reset();
+        }
+
+        // Handle form submission
+        function handleJoinFormSubmit(e) {
+            e.preventDefault();
+            
+            // In a real app, you would send this data to your server
+            const formData = {
+                groupId: selectedGroupId.value,
+                groupName: modalGroupName.textContent.replace('Join ', ''),
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                location: document.getElementById('location').value,
+                message: document.getElementById('message').value
+            };
+            
+            console.log('Form submitted:', formData);
+            
+            // Show success message
+            alert(`Thank you for your interest in joining ${formData.groupName}! Our team will contact you within 24 hours.`);
+            
+            // Close modal
+            closeJoinModal();
+        }
+    </script>
+</body>
+</html>
