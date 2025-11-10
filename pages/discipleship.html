@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discipleship Classes at SaltCity Central - Grow in faith through our progressive core classes and specialized faculty courses.">
+    <title>Discipleship Classes | SaltCity Central</title>
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    
+    <style>
+        /* Additional styles specific to discipleship classes page */
+        .discipleship-hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding-top: 120px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: var(--color-white);
+            overflow: hidden;
+        }
+        
+        .discipleship-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .discipleship-hero-badge {
+            display: inline-block;
+            background: rgba(212, 165, 116, 0.15);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-accent-gold);
+        }
+        
+        .discipleship-hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--color-white), var(--color-accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .discipleship-hero-text {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--color-light-grey);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .intro-section {
+            padding: var(--spacing-2xl) 0;
+            background: rgba(212, 165, 116, 0.03);
+        }
+        
+        .intro-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .intro-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .intro-description {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: var(--color-medium-grey);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .headmistress {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .headmistress-title {
+            font-size: 1.25rem;
+            color: var(--color-accent-gold);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .headmistress-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .progression-section {
+            padding: var(--spacing-2xl) 0;
+        }
+        
+        .progression-timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: var(--spacing-xl);
+        }
+        
+        .progression-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--color-accent-gold);
+            opacity: 0.2;
+        }
+        
+        .progression-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            padding: var(--spacing-lg) var(--spacing-md);
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            z-index: 1;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-warm);
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto var(--spacing-md);
+        }
+        
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .step-description {
+            color: var(--color-medium-grey);
+            font-size: 0.95rem;
+        }
+        
+        .core-classes {
+            padding: var(--spacing-2xl) 0;
+            background: rgba(212, 165, 116, 0.03);
+        }
+        
+        .class-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .class-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--color-accent-gold);
+        }
+        
+        .class-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .class-header {
+            padding: var(--spacing-lg);
+            background: rgba(212, 165, 116, 0.05);
+            border-bottom: 1px solid var(--color-light-grey);
+        }
+        
+        .class-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: 0.5rem;
+        }
+        
+        .class-instructor {
+            font-size: 1rem;
+            color: var(--color-medium-grey);
+            font-style: italic;
+        }
+        
+        .class-details {
+            padding: var(--spacing-lg);
+        }
+        
+        .class-description {
+            color: var(--color-medium-grey);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .class-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--color-medium-grey);
+        }
+        
+        .feature-check {
+            color: var(--color-accent-gold);
+            font-weight: bold;
+        }
+        
+        .class-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .class-duration {
+            font-size: 0.875rem;
+            color: var(--color-medium-grey);
+        }
+        
+        .enroll-btn {
+            background: var(--gradient-warm);
+            color: var(--color-white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .enroll-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .specialized-section {
+            padding: var(--spacing-2xl) 0;
+        }
+        
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .faculty-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border-top: 4px solid transparent;
+        }
+        
+        .faculty-card.marriage {
+            border-top-color: #e91e63;
+        }
+        
+        .faculty-card.finance {
+            border-top-color: #4caf50;
+        }
+        
+        .faculty-card.healing {
+            border-top-color: #2196f3;
+        }
+        
+        .faculty-card.ministry {
+            border-top-color: #ff9800;
+        }
+        
+        .faculty-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .faculty-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .faculty-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .faculty-description {
+            color: var(--color-medium-grey);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .faculty-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .faculty-schedule {
+            font-size: 0.95rem;
+            color: var(--color-medium-grey);
+        }
+        
+        .faculty-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faculty-status {
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        
+        .status-open {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+        
+        .status-upcoming {
+            background: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+        }
+        
+        .cta-section {
+            padding: var(--spacing-2xl) 0;
+            text-align: center;
+        }
+        
+        .cta-card {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-md);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .cta-text {
+            font-size: 1.125rem;
+            color: var(--color-medium-grey);
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.6;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-black);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--color-medium-grey);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-black);
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-accent-gold);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .submit-btn {
+            background: var(--gradient-warm);
+            color: var(--color-white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .cancel-btn {
+            background: var(--color-white);
+            color: var(--color-medium-grey);
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+        
+        .cancel-btn:hover {
+            border-color: var(--color-accent-gold);
+            color: var(--color-accent-warm);
+        }
+        
+        @media (max-width: 1024px) {
+            .progression-timeline {
+                flex-direction: column;
+                gap: var(--spacing-lg);
+            }
+            
+            .progression-timeline::before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .discipleship-hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .class-cards, .faculty-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .class-actions, .faculty-actions {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                align-items: flex-start;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .discipleship-hero-title {
+                font-size: 2rem;
+            }
+            
+            .intro-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- ========== HEADER / NAVIGATION ========== -->
+    <header class="site-header" id="mainHeader">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <a href="../index.html">
+                        <img src="../assets/images/logo/logo-white.svg" alt="SaltCity Central Logo" class="logo">
+                    </a>
+                    <span class="tagline">Discipling believers to fulfil their ministry</span>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="main-nav" id="mainNav">
+                    <ul class="nav-list">
+                        <li><a href="../index.html" class="nav-link">Home</a></li>
+                        <li><a href="sermons.html" class="nav-link">Sermons</a></li>
+                        <li><a href="giving.html" class="nav-link">Give</a></li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="discipleship-hero">
+        <div class="container">
+            <div class="discipleship-hero-content">
+                <div class="discipleship-hero-badge">Discipleship</div>
+                <h1 class="discipleship-hero-title">Grow in Your Faith Journey</h1>
+                <p class="discipleship-hero-text">
+                    Join our structured discipleship program designed to help you progress from foundational faith to mature ministry service.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== INTRODUCTION SECTION ========== -->
+    <section class="intro-section section-padding">
+        <div class="container">
+            <div class="intro-content">
+                <h2 class="intro-title">Our Discipleship System</h2>
+                <p class="intro-description">
+                    At SaltCity Central, our discipleship classes are designed as a progressive journey to help you grow in faith and fulfill your ministry calling. Under the leadership of our Headmistress, Deacon Nancy, we offer a flexible, rolling enrollment system where you can start at any time from the beginning. Multiple teachers are available during class sessions to provide personalized guidance and support.
+                </p>
+                
+                <div class="headmistress">
+                    <div class="headmistress-title">Headmistress</div>
+                    <div class="headmistress-name">Deacon Nancy</div>
+                </div>
+                
+                <p class="intro-description">
+                    Our core program follows a clear progression: Begin with the School of Discipleship for foundational teaching, advance to the School of Membership for church integration, and complete with the School of Maturity for deeper growth. Upon completion, explore our specialized faculty courses for targeted development in specific life areas.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PROGRESSION SECTION ========== -->
+    <section class="progression-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Core Discipleship Path</h2>
+                <p>Our progressive journey to spiritual maturity</p>
+            </div>
+            
+            <div class="progression-timeline">
+                <div class="progression-step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">School of Discipleship</h3>
+                    <p class="step-description">Foundation for new believers and visitors</p>
+                </div>
+                
+                <div class="progression-step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">School of Membership</h3>
+                    <p class="step-description">Preparation for church commitment</p>
+                </div>
+                
+                <div class="progression-step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">School of Maturity</h3>
+                    <p class="step-description">Advanced growth for members</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CORE CLASSES SECTION ========== -->
+    <section class="core-classes section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Core Classes</h2>
+                <p>Sunday morning classes meeting from 9:00 AM - 10:00 AM • Rolling enrollment • Multiple teachers available</p>
+            </div>
+            
+            <div class="class-cards">
+                <!-- School of Discipleship -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <h3 class="class-title">School of Discipleship</h3>
+                        <p class="class-instructor">Multiple Teachers Available</p>
+                    </div>
+                    
+                    <div class="class-details">
+                        <p class="class-description">
+                            Essential foundational teaching for first-time visitors and new believers. Understand core Christian doctrines and begin your faith journey.
+                        </p>
+                        
+                        <div class="class-features">
+                            <div class="feature-item"><span class="feature-check">✓</span> Basic Christian doctrines</div>
+                            <div class="feature-item"><span class="feature-check">✓</span> Salvation and baptism</div>
+                            <div class="feature-item"><span class="feature-check">✓</span> Introduction to discipleship</div>
+                        </div>
+                        
+                        <div class="class-actions">
+                            <span class="class-duration">4 Weeks</span>
+                            <button class="enroll-btn" data-class="discipleship">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- School of Membership -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <h3 class="class-title">School of Membership</h3>
+                        <p class="class-instructor">Multiple Teachers Available</p>
+                    </div>
+                    
+                    <div class="class-details">
+                        <p class="class-description">
+                            For graduates of School of Discipleship considering church membership. Learn about our values, structure, and community participation.
+                        </p>
+                        
+                        <div class="class-features">
+                            <div class="feature-item"><span class="feature-check">✓</span> Church governance</div>
+                            <div class="feature-item"><span class="feature-check">✓</span> Membership responsibilities</div>
+                            <div class="feature-item"><span class="feature-check">✓</span> Community integration</div>
+                        </div>
+                        
+                        <div class="class-actions">
+                            <span class="class-duration">4 Weeks</span>
+                            <button class="enroll-btn" data-class="membership">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- School of Maturity -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <h3 class="class-title">School of Maturity</h3>
+                        <p class="class-instructor">Multiple Teachers Available</p>
+                    </div>
+                    
+                    <div class="class-details">
+                        <p class="class-description">
+                            For church members who have completed previous classes, focusing on deeper spiritual growth and leadership development.
+                        </p>
+                        
+                        <div class="class-features">
+                            <div class="feature-item"><span class="feature-check">✓</span> Spiritual disciplines</div>
+                            <div class="feature-item"><span class="feature-check">✓</span> Leadership principles</div>
+                            <div class="feature-item"><span class="feature-check">✓</span> Ministry preparation</div>
+                        </div>
+                        
+                        <div class="class-actions">
+                            <span class="class-duration">6 Weeks</span>
+                            <button class="enroll-btn" data-class="maturity">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SPECIALIZED FACULTY SECTION ========== -->
+    <section class="specialized-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Specialized Faculty Courses</h2>
+                <p>Advanced training in specific life and ministry areas • Available after core path completion</p>
+            </div>
+            
+            <div class="faculty-grid">
+                <!-- Marriage Enrichment -->
+                <div class="faculty-card marriage">
+                    <div class="faculty-icon">💍</div>
+                    <h3 class="faculty-title">Marriage Enrichment</h3>
+                    <p class="faculty-description">
+                        Build a strong, Christ-centered marriage through biblical principles and practical tools for couples.
+                    </p>
+                    
+                    <div class="faculty-meta">
+                        <div class="faculty-schedule">Wednesdays, 7:00 PM • 8 Weeks</div>
+                        <div class="faculty-schedule">Married & Engaged Couples</div>
+                    </div>
+                    
+                    <div class="faculty-actions">
+                        <span class="faculty-status status-open">Enrolling Now</span>
+                        <button class="enroll-btn" data-class="marriage">Enroll Now</button>
+                    </div>
+                </div>
+                
+                <!-- Debt Recovery & Financial Management -->
+                <div class="faculty-card finance">
+                    <div class="faculty-icon">💰</div>
+                    <h3 class="faculty-title">Debt Recovery & Financial Management</h3>
+                    <p class="faculty-description">
+                        Apply biblical financial principles to eliminate debt, build wealth, and become a faithful steward of God's resources.
+                    </p>
+                    
+                    <div class="faculty-meta">
+                        <div class="faculty-schedule">Thursdays, 6:00 PM • 6 Weeks</div>
+                        <div class="faculty-schedule">All Adults</div>
+                    </div>
+                    
+                    <div class="faculty-actions">
+                        <span class="faculty-status status-open">Enrolling Now</span>
+                        <button class="enroll-btn" data-class="finance">Enroll Now</button>
+                    </div>
+                </div>
+                
+                <!-- School of Healing -->
+                <div class="faculty-card healing">
+                    <div class="faculty-icon">❤️</div>
+                    <h3 class="faculty-title">School of Healing</h3>
+                    <p class="faculty-description">
+                        Experience emotional and spiritual healing through biblical principles, prayer ministry, and inner healing techniques.
+                    </p>
+                    
+                    <div class="faculty-meta">
+                        <div class="faculty-schedule">Fridays, 5:00 PM • 8 Weeks</div>
+                        <div class="faculty-schedule">All Adults</div>
+                    </div>
+                    
+                    <div class="faculty-actions">
+                        <span class="faculty-status status-upcoming">Starting Soon</span>
+                        <button class="enroll-btn" data-class="healing">Enroll Now</button>
+                    </div>
+                </div>
+                
+                <!-- Fit for Use/Ministry -->
+                <div class="faculty-card ministry">
+                    <div class="faculty-icon">⚙️</div>
+                    <h3 class="faculty-title">Fit for Use/Ministry</h3>
+                    <p class="faculty-description">
+                        Prepare for effective ministry service through character development, skill training, and understanding your calling.
+                    </p>
+                    
+                    <div class="faculty-meta">
+                        <div class="faculty-schedule">Saturdays, 9:00 AM • 10 Weeks</div>
+                        <div class="faculty-schedule">Ministry Leaders</div>
+                    </div>
+                    
+                    <div class="faculty-actions">
+                        <span class="faculty-status status-open">Enrolling Now</span>
+                        <button class="enroll-btn" data-class="ministry">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="cta-section section-padding">
+        <div class="container">
+            <div class="cta-card">
+                <h2 class="cta-title">Ready to Start Your Journey?</h2>
+                <p class="cta-text">
+                    Whether you're beginning with our core path or interested in specialized training, our team is here to guide you. Enroll today and take the next step in your spiritual growth.
+                </p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" id="generalInquiry">Get More Information</button>
+                    <a href="contact.html" class="btn btn-outline">Contact Our Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ENROLLMENT MODAL ========== -->
+    <div class="modal" id="enrollmentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalClassName">Enroll in Discipleship Class</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            
+            <form id="enrollmentForm">
+                <input type="hidden" id="selectedClassId">
+                
+                <div class="form-group">
+                    <label for="enrollName" class="form-label">Full Name</label>
+                    <input type="text" id="enrollName" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="enrollEmail" class="form-label">Email Address</label>
+                    <input type="email" id="enrollEmail" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="enrollPhone" class="form-label">Phone Number</label>
+                    <input type="tel" id="enrollPhone" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="enrollClass" class="form-label">Class Interest</label>
+                    <select id="enrollClass" class="form-select" required>
+                        <option value="">Select a class</option>
+                        <option value="discipleship">School of Discipleship</option>
+                        <option value="membership">School of Membership</option>
+                        <option value="maturity">School of Maturity</option>
+                        <option value="marriage">Marriage Enrichment</option>
+                        <option value="finance">Debt Recovery & Financial Management</option>
+                        <option value="healing">School of Healing</option>
+                        <option value="ministry">Fit for Use/Ministry</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="enrollExperience" class="form-label">Your Spiritual Background</label>
+                    <select id="enrollExperience" class="form-select" required>
+                        <option value="">Select your experience level</option>
+                        <option value="new-believer">New Believer</option>
+                        <option value="growing">Growing in Faith</option>
+                        <option value="mature">Mature Christian</option>
+                        <option value="leader">Ministry Leader</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="enrollQuestions" class="form-label">Questions or Comments</label>
+                    <textarea id="enrollQuestions" class="form-textarea" rows="4" placeholder="Any specific questions or things you'd like us to know..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Submit Enrollment</button>
+                    <button type="button" class="cancel-btn" id="cancelEnrollment">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER SECTION ========== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-column footer-about">
+                    <div class="footer-logo">
+                        <img src="../assets/images/logo/logo-white.svg" alt="SaltCity Central">
+                    </div>
+                    <p class="footer-tagline">Discipling believers to fulfil their ministry</p>
+                    <p class="footer-mission">
+                        We are a community of believers committed to making disciples through authentic relationships, biblical teaching, and intentional training.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="our-story.html">Our Story</a></li>
+                        <li><a href="programs.html">Programs</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Visit Us</h4>
+                    <div class="footer-location">
+                        <p class="location-address">
+                            Centre of Discipleship<br>
+                            20 Okumagba Avenue<br>
+                            Warri, Delta State
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Connect</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <a href="mailto:info@saltcitycentral.org">info@saltcitycentral.org</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright">© 2025 SaltCity Central. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 3l-7 7h4v7h6v-7h4l-7-7z"/>
+        </svg>
+    </button>
+
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/navigation.js"></script>
+    <script src="../assets/js/header-scroll.js"></script>
+    
+    <script>
+        // DOM elements
+        const enrollmentModal = document.getElementById('enrollmentModal');
+        const modalClassName = document.getElementById('modalClassName');
+        const selectedClassId = document.getElementById('selectedClassId');
+        const closeModal = document.getElementById('closeModal');
+        const cancelEnrollment = document.getElementById('cancelEnrollment');
+        const enrollmentForm = document.getElementById('enrollmentForm');
+        const enrollClassSelect = document.getElementById('enrollClass');
+        const generalInquiryBtn = document.getElementById('generalInquiry');
+
+        // Class data mapping
+        const classData = {
+            'discipleship': {
+                name: 'School of Discipleship'
+            },
+            'membership': {
+                name: 'School of Membership'
+            },
+            'maturity': {
+                name: 'School of Maturity'
+            },
+            'marriage': {
+                name: 'Marriage Enrichment'
+            },
+            'finance': {
+                name: 'Debt Recovery & Financial Management'
+            },
+            'healing': {
+                name: 'School of Healing'
+            },
+            'ministry': {
+                name: 'Fit for Use/Ministry'
+            }
+        };
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up event listeners for enroll buttons
+            document.querySelectorAll('.enroll-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const classId = this.getAttribute('data-class');
+                    openEnrollmentModal(classId);
+                });
+            });
+            
+            // General inquiry button
+            generalInquiryBtn.addEventListener('click', function() {
+                openEnrollmentModal('general');
+            });
+            
+            // Modal controls
+            closeModal.addEventListener('click', closeEnrollmentModal);
+            cancelEnrollment.addEventListener('click', closeEnrollmentModal);
+            
+            // Form submission
+            enrollmentForm.addEventListener('submit', handleEnrollmentSubmit);
+            
+            // Close modal when clicking outside
+            enrollmentModal.addEventListener('click', function(e) {
+                if (e.target === enrollmentModal) {
+                    closeEnrollmentModal();
+                }
+            });
+        });
+
+        // Open the enrollment modal
+        function openEnrollmentModal(classId) {
+            if (classId === 'general') {
+                modalClassName.textContent = 'Discipleship Classes Inquiry';
+                selectedClassId.value = 'general';
+                enrollClassSelect.value = '';
+            } else {
+                modalClassName.textContent = `Enroll in ${classData[classId].name}`;
+                selectedClassId.value = classId;
+                enrollClassSelect.value = classId;
+            }
+            
+            enrollmentModal.classList.add('active');
+        }
+
+        // Close the enrollment modal
+        function closeEnrollmentModal() {
+            enrollmentModal.classList.remove('active');
+            enrollmentForm.reset();
+        }
+
+        // Handle form submission
+        function handleEnrollmentSubmit(e) {
+            e.preventDefault();
+            
+            const formData = {
+                classId: selectedClassId.value,
+                className: selectedClassId.value === 'general' ? 'General Inquiry' : classData[selectedClassId.value].name,
+                fullName: document.getElementById('enrollName').value,
+                email: document.getElementById('enrollEmail').value,
+                phone: document.getElementById('enrollPhone').value,
+                classInterest: document.getElementById('enrollClass').value,
+                experience: document.getElementById('enrollExperience').value,
+                questions: document.getElementById('enrollQuestions').value
+            };
+            
+            console.log('Enrollment submitted:', formData);
+            
+            // Show success message
+            if (formData.classId === 'general') {
+                alert('Thank you for your interest in our discipleship classes! Our team will contact you with more information shortly.');
+            } else {
+                alert(`Thank you for enrolling in ${formData.className}! Our team will contact you within 24 hours with class details and next steps.`);
+            }
+            
+            // Close modal
+            closeEnrollmentModal();
+        }
+    </script>
+</body>
+</html>
